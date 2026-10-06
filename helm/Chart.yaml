@@ -1,0 +1,11 @@
+apiVersion: v2
+name: openproject-gitops
+description: Helm chart deployment wrapper for OpenProject
+type: application
+version: 1.0.0
+appVersion: "13.13.0"
+
+dependencies:
+  - name: openproject
+    version: "13.13.0"
+    repository: "https://charts.openproject.org/"

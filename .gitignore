@@ -1,0 +1,3 @@
+# Ignore downloaded chart archives and directories
+helm/charts/
+*.tgz

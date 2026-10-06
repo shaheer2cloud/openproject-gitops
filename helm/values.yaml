@@ -1,0 +1,67 @@
+openproject:
+  develop: true
+  replicaCount: 1
+
+  # Limit Rails/Puma concurrency to keep memory footprint lean
+  environment:
+    WEB_CONCURRENCY: "1"
+    RAILS_MAX_THREADS: "4"
+    OPENPROJECT_PUMA_WORKERS: "1"
+
+  openproject:
+    https: false
+    host: "openproject.local"
+    useTmpVolumes: false
+    admin_user:
+      password: "AdminPassword123!"
+      password_reset: "false"
+
+  persistence:
+    enabled: true
+    accessModes:
+      - "ReadWriteOnce"
+    size: "2Gi"
+    storageClassName: "microk8s-hostpath"
+
+  ingress:
+    enabled: true
+    ingressClassName: "traefik"
+    host: "openproject.local"
+    path: /
+    pathType: "Prefix"
+    tls:
+      enabled: false
+
+  # Raised memory ceiling to 2048Mi to prevent OOMKilled spikes
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "2048Mi"
+
+  postgresql:
+    bundled: true
+    primary:
+      persistence:
+        enabled: true
+        size: "3Gi"
+        storageClassName: "microk8s-hostpath"
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+
+  memcached:
+    bundled: true
+    resources:
+      requests:
+        cpu: "50m"
+        memory: "64Mi"
+      limits:
+        cpu: "200m"
+        memory: "128Mi"
