@@ -16,6 +16,11 @@ openproject:
       password: "AdminPassword123!"
       password_reset: "false"
 
+  # Direct OpenProject Rails app to read DB credentials from the secret
+  db:
+    existingSecret: "openproject-db-secret"
+    secretKey: "password"
+
   persistence:
     enabled: true
     accessModes:
@@ -43,6 +48,13 @@ openproject:
 
   postgresql:
     bundled: true
+    auth:
+      database: "openproject"
+      username: "openproject"
+      existingSecret: "openproject-db-secret"
+      secretKeys:
+        adminPasswordKey: "postgres-password"
+        userPasswordKey: "password"
     primary:
       persistence:
         enabled: true
