@@ -5,7 +5,7 @@ openproject:
   # Limit Rails/Puma concurrency to keep memory footprint lean
   environment:
     WEB_CONCURRENCY: "1"
-    RAILS_MAX_THREADS: "4"
+    RAILS_MAX_THREADS: "5"
     OPENPROJECT_PUMA_WORKERS: "1"
 
   openproject:
